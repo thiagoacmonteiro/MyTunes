@@ -6,7 +6,7 @@ import Loading from './Loading';
 class Login extends React.Component {
   render() {
     const {
-      onNameInputChange,
+      onInputChange,
       submitButtonState,
       loginNameInput,
       onSubmitButtonClick,
@@ -27,8 +27,9 @@ class Login extends React.Component {
               <input
                 type="text"
                 data-testid="login-name-input"
+                name="loginNameInput"
                 value={ loginNameInput }
-                onChange={ onNameInputChange }
+                onChange={ onInputChange }
               />
               <button
                 type="submit"
@@ -46,7 +47,7 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  onNameInputChange: PropTypes.func.isRequired,
+  onInputChange: PropTypes.func.isRequired,
   submitButtonState: PropTypes.func.isRequired,
   loginNameInput: PropTypes.string.isRequired,
   onSubmitButtonClick: PropTypes.func.isRequired,

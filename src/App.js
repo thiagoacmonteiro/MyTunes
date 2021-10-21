@@ -16,8 +16,9 @@ class App extends React.Component {
 
     // Bind functions to be seen trough 'this'
     this.submitButtonBehavior = this.submitButtonBehavior.bind(this);
-    this.onNameInputChange = this.onNameInputChange.bind(this);
     this.onSubmitButtonClick = this.onSubmitButtonClick.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
+    this.searchButtonBehavior = this.searchButtonBehavior.bind(this);
 
     // Set initial state
     this.state = {
@@ -25,19 +26,33 @@ class App extends React.Component {
       submitButtonState: true,
       loading: false,
       redirectToSearch: false,
+      searchButtonState: true,
+      searchInput: '',
     };
   }
 
-  // Set new state to loginNameInput and submitButtonState
-  onNameInputChange({ target }) {
-    const { value } = target;
+  // onInputChange({target}) {
+  //   console.log(target);
+  //   const { value } = target;
+
+  //   this.setState({
+  //     searchInput: value,
+  //     searchButtonState: this.searchButtonBehavior(value)
+  //   })
+  // }
+
+  // Generic input handler
+  onInputChange({ target }) {
+    const { value, name } = target;
 
     this.setState({
-      loginNameInput: value,
+      [name]: value,
+      searchButtonState: this.searchButtonBehavior(value),
       submitButtonState: this.submitButtonBehavior(value),
     });
   }
 
+  // Show loading message while redirect to search page after clicking enter button
   onSubmitButtonClick() {
     const { loginNameInput } = this.state;
 
@@ -49,11 +64,21 @@ class App extends React.Component {
         })));
   }
 
-  // Verify whether the input has a length longer than 3
+  // Verify whether the name input length is equal or longer than 3
   submitButtonBehavior(loginNameInput) {
     const minLength = 3;
 
     if (loginNameInput.length >= minLength) {
+      return false;
+    }
+    return true;
+  }
+
+  // Verify whether the search input length is equal or longer than 2
+  searchButtonBehavior(searchInput) {
+    const minLength = 2;
+
+    if (searchInput.length >= minLength) {
       return false;
     }
     return true;
@@ -68,11 +93,17 @@ class App extends React.Component {
             path="/"
             render={ () => (<Login
               { ...this.state }
-              onNameInputChange={ this.onNameInputChange }
+              onInputChange={ this.onInputChange }
               onSubmitButtonClick={ this.onSubmitButtonClick }
             />) }
           />
-          <Route path="/search" component={ Search } />
+          <Route
+            path="/search"
+            render={ () => (<Search
+              { ...this.state }
+              onInputChange={ this.onInputChange }
+            />) }
+          />
           <Route path="/album/:id" render={ (props) => <Album { ...props } /> } />
           <Route path="/favorites" component={ Favorites } />
           <Route exact path="/profile" component={ Profile } />
