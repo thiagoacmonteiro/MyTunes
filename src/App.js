@@ -9,6 +9,7 @@ import Profile from './pages/Profile';
 import ProfileEdit from './pages/ProfileEdit';
 import NotFound from './pages/NotFound';
 import { createUser } from './services/userAPI';
+import searchAlbumsAPI from './services/searchAlbumsAPI';
 
 class App extends React.Component {
   constructor() {
@@ -19,6 +20,7 @@ class App extends React.Component {
     this.onSubmitButtonClick = this.onSubmitButtonClick.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
     this.searchButtonBehavior = this.searchButtonBehavior.bind(this);
+    this.searchAlbum = this.searchAlbum.bind(this);
 
     // Set initial state
     this.state = {
@@ -28,6 +30,9 @@ class App extends React.Component {
       redirectToSearch: false,
       searchButtonState: true,
       searchInput: '',
+      albums: [],
+      artistName: '',
+      getAlbums: false,
     };
   }
 
@@ -84,6 +89,25 @@ class App extends React.Component {
     return true;
   }
 
+  // Search for collections by artist name using search input as value
+  async searchAlbum() {
+    const { searchInput } = this.state;
+    const albums = await searchAlbumsAPI(searchInput);
+    let getAlbums = false;
+
+    if (albums.length > 0) {
+      getAlbums = true;
+    }
+
+    this.setState({
+      artistName: searchInput,
+      searchInput: '',
+      loading: false,
+      albums,
+      getAlbums,
+    });
+  }
+
   render() {
     return (
       <BrowserRouter>
@@ -102,6 +126,7 @@ class App extends React.Component {
             render={ () => (<Search
               { ...this.state }
               onInputChange={ this.onInputChange }
+              searchAlbum={ this.searchAlbum }
             />) }
           />
           <Route path="/album/:id" render={ (props) => <Album { ...props } /> } />

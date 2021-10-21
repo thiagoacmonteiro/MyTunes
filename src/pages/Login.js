@@ -18,6 +18,7 @@ class Login extends React.Component {
 
     return (
       <div data-testid="page-login">
+        {/* Condition to display acording to the state of loading */}
         { loading ? (
           <Loading />
         ) : (
