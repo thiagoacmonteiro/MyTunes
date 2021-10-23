@@ -35,7 +35,7 @@ class Album extends React.Component {
       () => getMusics(id).then((data) => this.setState({
         loading: false,
         album: data[0],
-        musics: data.splice(1),
+        musics: data.slice(1, data.length),
       })));
   }
 
