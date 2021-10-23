@@ -31,8 +31,11 @@ class App extends React.Component {
       searchButtonState: true,
       searchInput: '',
       albums: [],
+      album: {},
+      musics: [],
       artistName: '',
       getAlbums: false,
+      user: '',
     };
   }
 
@@ -129,7 +132,14 @@ class App extends React.Component {
               searchAlbum={ this.searchAlbum }
             />) }
           />
-          <Route path="/album/:id" render={ (props) => <Album { ...props } /> } />
+          <Route
+            path="/album/:id"
+            render={ (props) => (
+              <Album
+                { ...props }
+                { ...this.state }
+              />) }
+          />
           <Route path="/favorites" component={ Favorites } />
           <Route exact path="/profile" component={ Profile } />
           <Route path="/profile/edit" component={ ProfileEdit } />

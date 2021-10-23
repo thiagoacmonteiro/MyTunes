@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
+import NotFound from './NotFound';
 
 class Search extends React.Component {
   render() {
@@ -17,8 +18,7 @@ class Search extends React.Component {
 
     return (
       <div data-testid="page-search">
-        <p>search</p>
-        <Header { ...this.props } />
+        <Header />
         <form>
           <input
             type="text"
@@ -46,7 +46,7 @@ class Search extends React.Component {
                 {/* Map results using collection id and name */}
                 { albums.map((album) => (
                   <Link
-                    key={ album.collectionName }
+                    key={ album.collectionId }
                     to={ `/album/${album.collectionId}` }
                     data-testid={ `link-to-album-${album.collectionId}` }
                   >
@@ -55,7 +55,9 @@ class Search extends React.Component {
               </div>
             </div>
           ) : (
-            <p>Nenhum álbum foi encontrado</p>) }
+            <p />) }
+          { !getAlbums && artistName.length > 0
+            ? <NotFound /> : <p /> }
         </form>
       </div>
     );

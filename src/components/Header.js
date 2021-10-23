@@ -13,10 +13,12 @@ class Header extends React.Component {
     };
   }
 
+  // Call getUserData after mount
   componentDidMount() {
     this.getUserData();
   }
 
+  // Get user info from local storage, set new state for user with the user name, and stop loading
   async getUserData() {
     const user = await getUser();
 
