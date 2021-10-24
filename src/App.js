@@ -39,16 +39,6 @@ class App extends React.Component {
     };
   }
 
-  // onInputChange({target}) {
-  //   console.log(target);
-  //   const { value } = target;
-
-  //   this.setState({
-  //     searchInput: value,
-  //     searchButtonState: this.searchButtonBehavior(value)
-  //   })
-  // }
-
   // Generic input handler
   onInputChange({ target }) {
     const { value, name } = target;
