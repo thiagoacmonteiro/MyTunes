@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { addSong } from '../services/favoriteSongsAPI';
+import { addSong, removeSong } from '../services/favoriteSongsAPI';
 import Loading from '../pages/Loading';
 
 class MusicCard extends React.Component {
@@ -14,19 +14,44 @@ class MusicCard extends React.Component {
     };
 
     this.favoritesBehavior = this.favoritesBehavior.bind(this);
+    this.addMusic = this.addMusic.bind(this);
+    this.removeMusic = this.removeMusic.bind(this);
+    this.setNewSate = this.setNewSate.bind(this);
   }
 
-  async favoritesBehavior({ target }) {
+  // Stop loading element, turn clicked true for the checkbox condition and set favorite true or false acording to each click
+  setNewSate(favorite) {
+    this.setState({
+      loading: false,
+      clicked: true,
+      favorite,
+    });
+  }
+
+  // Call add or remove function acording to the state of checkbox
+  favoritesBehavior({ target }) {
     const favorite = target.checked;
     const { music } = this.props;
 
+    if (favorite) {
+      this.addMusic(music, favorite);
+    } else {
+      this.removeMusic(music, favorite);
+    }
+  }
+
+  // Remove music whether favorite is true while loading
+  removeMusic(music, favorite) {
+    this.setState({ loading: true },
+      () => removeSong(music)
+        .then(() => this.setNewSate(favorite)));
+  }
+
+  // Add music whether favorite is false while loading
+  addMusic(music, favorite) {
     this.setState({ loading: true },
       () => addSong(music)
-        .then(() => this.setState({
-          loading: false,
-          clicked: true,
-          favorite,
-        })));
+        .then(() => this.setNewSate(favorite)));
   }
 
   render() {
