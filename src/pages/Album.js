@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import MusicCard from '../components/MusicCard';
 import getMusics from '../services/musicsAPI';
+import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 import Loading from './Loading';
 
 class Album extends React.Component {
@@ -13,9 +14,11 @@ class Album extends React.Component {
       musics: [],
       album: {},
       loading: false,
+      favoritesIds: [],
     };
 
     this.getAlbumMusics = this.getAlbumMusics.bind(this);
+    this.checkBoxBehavior = this.checkBoxBehavior.bind(this);
   }
 
   // Call getAlbumMusics after component mount
@@ -23,7 +26,7 @@ class Album extends React.Component {
     this.getAlbumMusics();
   }
 
-  // Get album data
+  // Get album data and set album name and musics list
   getAlbumMusics() {
     const {
       match: {
@@ -36,7 +39,17 @@ class Album extends React.Component {
         loading: false,
         album: data[0],
         musics: data.slice(1, data.length),
-      })));
+      }))
+        .then(() => this.checkBoxBehavior()));
+  }
+
+  async checkBoxBehavior() {
+    const favoriteSongs = await getFavoriteSongs();
+    const favoritesIds = await favoriteSongs.map((song) => song.trackId);
+
+    this.setState({
+      favoritesIds,
+    });
   }
 
   render() {
@@ -55,7 +68,12 @@ class Album extends React.Component {
         <Header { ...this.props } />
         <p data-testid="artist-name">{ artistName }</p>
         <p data-testid="album-name">{ collectionName }</p>
-        { musics.map((song) => <MusicCard key={ song.trackName } music={ song } />) }
+        { musics.map((song) => (
+          <MusicCard
+            { ...this.state }
+            key={ song.trackName }
+            music={ song }
+          />)) }
       </div>
     );
   }
