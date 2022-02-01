@@ -17,15 +17,20 @@ class Login extends React.Component {
     if (redirectToSearch) return <Redirect to="/search" />;
 
     return (
-      <div data-testid="page-login">
+      <div
+        className="h-screen bg-gradient-to-t from-cyan-500 to-emerald-500"
+        data-testid="page-login"
+      >
         {/* Condition to display acording to the state of loading. */}
         { loading ? (
           <Loading />
         ) : (
-          <div>
-            <h1>login</h1>
-            <form>
+          <div className="flex h-screen flex-col items-center justify-center">
+            <h1 className="text-6xl mb-10 text-cyan-900">login</h1>
+            <form className="flex flex-col items-center">
               <input
+                className="rounded-md"
+                placeholder="Enter your email"
                 type="text"
                 data-testid="login-name-input"
                 name="loginNameInput"
@@ -33,12 +38,13 @@ class Login extends React.Component {
                 onChange={ onInputChange }
               />
               <button
+                className="mt-5 rounded-md w-20 bg-emerald-600 text-white font-bold"
                 type="submit"
                 data-testid="login-submit-button"
                 disabled={ submitButtonState }
                 onClick={ onSubmitButtonClick }
               >
-                Entrar
+                Enter
               </button>
             </form>
           </div>) }

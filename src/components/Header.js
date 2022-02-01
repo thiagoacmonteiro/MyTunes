@@ -37,13 +37,37 @@ class Header extends React.Component {
     if (loading) return <Loading />;
 
     return (
-      <header data-testid="header-component">
-        <p data-testid="header-user-name">
+      <header
+        className="flex w-full flex-col bg-emerald-300 drop-shadow-md"
+        data-testid="header-component"
+      >
+        <p className="ml-2 mt-1 text-3xl text-cyan-900">MyTunes</p>
+        <p className="self-center text text-cyan-900" data-testid="header-user-name">
           {`Welcome ${user.name}`}
         </p>
-        <Link to="/search" data-testid="link-to-search"> Search </Link>
-        <Link to="/favorites" data-testid="link-to-favorites"> Favorites </Link>
-        <Link to="/profile" data-testid="link-to-profile"> Profile </Link>
+        <div className="flex justify-around mt-5 mb-2">
+          <Link
+            className="font-bold text-cyan-900"
+            to="/search"
+            data-testid="link-to-search"
+          >
+            Search
+          </Link>
+          <Link
+            className="font-bold text-cyan-900"
+            to="/favorites"
+            data-testid="link-to-favorites"
+          >
+            Favorites
+          </Link>
+          <Link
+            className="font-bold text-cyan-900"
+            to="/profile"
+            data-testid="link-to-profile"
+          >
+            Profile
+          </Link>
+        </div>
       </header>
     );
   }
