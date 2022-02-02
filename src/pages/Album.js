@@ -63,11 +63,14 @@ class Album extends React.Component {
     const { musics, loading } = this.state;
 
     return (
-      <div data-testid="page-album">
+      <div
+        className="flex flex-col h-full w-screen
+          bg-gradient-to-t from-cyan-500 to-emerald-500 items-center"
+        data-testid="page-album">
         {loading && <Loading />}
         <Header { ...this.props } />
-        <p data-testid="artist-name">{ artistName }</p>
-        <p data-testid="album-name">{ collectionName }</p>
+        <p className="mt-5 mb-3 text-emerald-900 font-semibold text-3xl" data-testid="artist-name">{ artistName }</p>
+        <p className="mb-5 text-emerald-900 font-semibold text-xl" data-testid="album-name">{ collectionName }</p>
         { musics.map((song) => (
           <MusicCard
             { ...this.state }

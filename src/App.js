@@ -25,6 +25,7 @@ class App extends React.Component {
     // Set initial state
     this.state = {
       loginNameInput: '',
+      loginEmail: '',
       submitButtonState: true,
       loading: false,
       redirectToSearch: false,
@@ -42,9 +43,11 @@ class App extends React.Component {
   // Generic input handler
   onInputChange({ target }) {
     const { value, name } = target;
+    console.log(name);
 
     this.setState({
       [name]: value,
+      // loginImage: name === 'loginNameInput' ? `https://github.com/${value}.png` : 'https://img.etimg.com/thumb/msid-81525531,width-650,imgsize-622277,,resizemode-4,quality-100/music_thinkstockphotos.jpg',
       searchButtonState: this.searchButtonBehavior(value),
       submitButtonState: this.submitButtonBehavior(value),
     });
@@ -52,10 +55,10 @@ class App extends React.Component {
 
   // Show loading message while redirect to search page after clicking enter button
   onSubmitButtonClick() {
-    const { loginNameInput } = this.state;
+    const { loginNameInput, loginEmail } = this.state;
 
     this.setState({ loading: true },
-      () => createUser({ name: loginNameInput })
+      () => createUser({ name: loginNameInput, email: loginEmail, image: `https://github.com/${loginNameInput}.png`})
         .then(() => this.setState({
           loading: false,
           redirectToSearch: true,
@@ -131,7 +134,7 @@ class App extends React.Component {
               />) }
           />
           <Route path="/favorites" component={ Favorites } />
-          <Route exact path="/profile" component={ Profile } />
+          <Route exact path="/profile" render={ () => ( <Profile { ...this.state } /> ) } />
           <Route path="/profile/edit" component={ ProfileEdit } />
           <Route component={ NotFound } />
         </Switch>

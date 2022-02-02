@@ -9,6 +9,7 @@ class Login extends React.Component {
       onInputChange,
       submitButtonState,
       loginNameInput,
+      loginEmail,
       onSubmitButtonClick,
       loading,
       redirectToSearch,
@@ -26,15 +27,34 @@ class Login extends React.Component {
           <Loading />
         ) : (
           <div className="flex h-screen flex-col items-center justify-center">
+            <p className="mb-10 text-7xl text-cyan-900">MyTunes</p>
             <h1 className="text-6xl mb-10 text-cyan-900">login</h1>
+            <img
+              className="rounded-full h-72 w-72"
+              src={ loginNameInput === '' ? (
+                'https://img.etimg.com/thumb/msid-81525531,width-650,imgsize-622277,,resizemode-4,quality-100/music_thinkstockphotos.jpg'
+              ) : (
+                `https://github.com/${loginNameInput}.png`
+              ) }
+              alt={ loginNameInput }
+            /> 
             <form className="flex flex-col items-center">
               <input
-                className="rounded-md"
-                placeholder="Enter your email"
+                className="rounded-md mt-5 mb-5"
+                placeholder="Enter your github user name"
                 type="text"
                 data-testid="login-name-input"
                 name="loginNameInput"
                 value={ loginNameInput }
+                onChange={ onInputChange }
+              />
+              <input
+                className="rounded-md"
+                placeholder="Enter your email"
+                type="text"
+                data-testid="login-email-input"
+                name="loginEmail"
+                value={ loginEmail }
                 onChange={ onInputChange }
               />
               <button

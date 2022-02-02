@@ -59,7 +59,7 @@ class MusicCard extends React.Component {
     const { loading, clicked, favorite } = this.state;
 
     return (
-      <div>
+      <div className="mb-5">
         <p>{ music.trackName }</p>
         <audio
           data-testid="audio-component"
@@ -72,7 +72,7 @@ class MusicCard extends React.Component {
           .
         </audio>
         <label htmlFor="favorite-check">
-          Favorita
+          Favorite
           <input
             data-testid={ `checkbox-music-${music.trackId}` }
             name="favorite-check"
