@@ -3,7 +3,7 @@
 A project to find artists and listen to their song. You can hear a preview of each song and add them to your favorite songs.
 (Stylization barely done, just to be possible to interact. I'm still gonna finish it)
 
-## Tecnologias e ferramentas utilizadas robot
+## Tecnologies and tools
 - ReactJS
 - Class Components
 - Local Storage
