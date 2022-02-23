@@ -11,7 +11,6 @@ class Search extends React.Component {
       onInputChange,
       searchInput,
       searchAlbum,
-      getAlbums,
       artistName,
       albums,
     } = this.props;
@@ -19,7 +18,7 @@ class Search extends React.Component {
     return (
       <div
         className="flex flex-col items-center h-screen w-screen
-          bg-gradient-to-t from-cyan-500 to-emerald-500"
+          bg-gradient-to-t from-cyan-500 to-emerald-500 z-[5000000000]"
         data-testid="page-search"
       >
         <Header />
@@ -43,14 +42,14 @@ class Search extends React.Component {
             Search
           </button>
           {/* Condition to display according to the state of the array of albums */}
-          { getAlbums ? (
+          { albums.length > 0 && (
             <div className="flex flex-col items-center mt-4">
               <p className="mb-4">
                 {`Results for albuns of: ${artistName}`}
               </p>
               <div
                 className="flex flex-wrap
-                  bg-gradient-to-t from-cyan-500 to-emerald-500 h-full"
+                  bg-gradient-to-t from-cyan-500 to-emerald-500 h-full w-screen justify-center"
               >
                 {/* Map results using collection id and name */}
                 { albums.map((album) => (
@@ -72,11 +71,8 @@ class Search extends React.Component {
                     </p>
                   </Link>)) }
               </div>
-            </div>
-          ) : (
-            <p />) }
-          { !getAlbums && artistName.length > 0
-            ? <NotFound /> : <p /> }
+            </div>)}
+          { (albums.length === 0 && artistName) && <NotFound />}
         </form>
       </div>
     );

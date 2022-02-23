@@ -64,8 +64,8 @@ class Album extends React.Component {
 
     return (
       <div
-        className="flex flex-col h-full w-screen
-          bg-gradient-to-t from-cyan-500 to-emerald-500 items-center"
+        className={`flex flex-col ${musics.length > 8 ? 'h-full' : 'h-screen'} w-screen
+          bg-gradient-to-t from-cyan-500 to-emerald-500 items-center z-30`}
         data-testid="page-album">
         {loading && <Loading />}
         <Header { ...this.props } />

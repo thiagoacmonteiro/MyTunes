@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { addSong, removeSong } from '../services/favoriteSongsAPI';
-import Loading from '../pages/Loading';
 
 class MusicCard extends React.Component {
   constructor() {
@@ -56,7 +55,7 @@ class MusicCard extends React.Component {
 
   render() {
     const { music, favoritesIds } = this.props;
-    const { loading, clicked, favorite } = this.state;
+    const { clicked, favorite } = this.state;
 
     return (
       <div className="mb-5">
@@ -81,7 +80,6 @@ class MusicCard extends React.Component {
             checked={ !clicked ? favoritesIds.includes(music.trackId) : favorite }
           />
         </label>
-        { loading ? <Loading /> : <p /> }
       </div>
     );
   }

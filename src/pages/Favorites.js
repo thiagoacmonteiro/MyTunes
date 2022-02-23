@@ -8,10 +8,11 @@ class Favorites extends React.Component {
     const favoritesIds = favorites.map((favorite) => favorite.trackId);
 
     return (
-      <div data-testid="page-favorites">
+      <div
+        data-testid="page-favorites">
         <Header />
         { favorites.length > 0 ? (
-          <div className="flex flex-col h-screen w-screen bg-gradient-to-t from-cyan-500 to-emerald-500 items-center">
+          <div className={`flex flex-col ${favorites.length > 6 ? 'h-full' : 'h-screen'} w-screen bg-gradient-to-t from-cyan-500 to-emerald-500 items-center`}>
             <p className="mt-10 mb-10 text-emerald-900 font-semibold text-xl">Your favorite songs</p>
             <div>
               {favorites.map((favorite) => (

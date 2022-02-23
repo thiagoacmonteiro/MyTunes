@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router';
 import PropTypes from 'prop-types';
 import Loading from './Loading';
+import loginImage from '../images/loginimage.jpg';
 
 class Login extends React.Component {
   render() {
@@ -32,7 +33,7 @@ class Login extends React.Component {
             <img
               className="rounded-full h-72 w-72"
               src={ loginNameInput === '' ? (
-                'https://img.etimg.com/thumb/msid-81525531,width-650,imgsize-622277,,resizemode-4,quality-100/music_thinkstockphotos.jpg'
+                loginImage
               ) : (
                 `https://github.com/${loginNameInput}.png`
               ) }

@@ -35,7 +35,6 @@ class App extends React.Component {
       album: {},
       musics: [],
       artistName: '',
-      getAlbums: false,
       user: '',
     };
   }
@@ -89,18 +88,12 @@ class App extends React.Component {
   async searchAlbum() {
     const { searchInput } = this.state;
     const albums = await searchAlbumsAPI(searchInput);
-    let getAlbums = false;
-
-    if (albums.length > 0) {
-      getAlbums = true;
-    }
 
     this.setState({
       artistName: searchInput,
       searchInput: '',
       loading: false,
       albums,
-      getAlbums,
     });
   }
 
