@@ -42,10 +42,11 @@ class App extends React.Component {
   // Generic input handler
   onInputChange({ target }) {
     const { value, name } = target;
+    const lowerCaseValue = value.toLowerCase();
     console.log(name);
 
     this.setState({
-      [name]: value,
+      [name]: lowerCaseValue,
       // loginImage: name === 'loginNameInput' ? `https://github.com/${value}.png` : 'https://img.etimg.com/thumb/msid-81525531,width-650,imgsize-622277,,resizemode-4,quality-100/music_thinkstockphotos.jpg',
       searchButtonState: this.searchButtonBehavior(value),
       submitButtonState: this.submitButtonBehavior(value),
